@@ -1,0 +1,64 @@
+
+select concat(pr.projectname,tr.TargetName,'测量成果表') as `title`  
+from `targets` tr join `projects` pr on tr.projectid=pr.projectid
+where tr.targetid=@targetid;
+
+
+select A.col1,A.col2,B.col3,C.col4 from (
+select 1 as id ,
+concat('本次监测日期：',date_format(SurveyingTime, '%Y年%m月%d日')) as col1,
+concat('天气：',DayWeather) as col2
+from surveyings where SurveyingId=@sureyingidlast limit 1
+) A
+left join (
+select 1 as id , date_format(SurveyingTime, '%Y年%m月%d日') as col3  from surveyings
+where SurveyingTime<(select SurveyingTime from surveyings where  SurveyingId=@sureyingidlast)
+order by SurveyingTime desc
+limit 1
+) B on A.id=B.id
+left join (
+select 1 as id,concat('监测次数：',count(1)) as col4 from surveyings where targetid=@targetid
+) C on A.id=C.id;
+
+
+
+
+select po.PointName as `监测点号`
+,A.col1 as `初始测量值`
+,B.col1 as `上次测量值`
+,C.col1 as `本次测量值`
+,(C.col1-B.col1) as `本次变形量`
+,(C.col1-A.col1) as `累计变形量`
+,D.days as `总天数`
+,((C.col1-A.col1)/(case D.days when 0 then 1 else D.days end)) as `变形速率`
+,DATE_FORMAT(D.col3, '%Y-%m-%d') as `初始值 观测时间`
+,C.col2 as `备注`
+from points as po 
+left join (
+select `pointid`,data1 as col1 from surveyingdetails where SurveyingId=1
+) A on po.pointid=A.pointid
+
+left join (
+select `pointid`,data1 as col1 from surveyingdetails 
+where SurveyingId=(select SurveyingId from surveyings
+where SurveyingTime<(select SurveyingTime from surveyings where SurveyingId=2)
+order by SurveyingTime desc limit 1)
+) B on po.pointid=B.pointid
+
+left join (
+select `pointid`,data1 as col1,`remark` as col2 from surveyingdetails where SurveyingId=2
+) C on po.pointid=C.pointid
+
+left join (
+select p.pointid,X22.days,X22.col3 from points p 
+left join (
+ select datediff( DATE_FORMAT(X2.col1, '%Y-%m-%d'),DATE_FORMAT(X1.col1, '%Y-%m-%d')) as days,X1.col2,X1.col3
+ from (select 1 as id, SurveyingTime as col1 ,targetid as col2,SurveyingTime as col3
+ from surveyings where SurveyingId=1) X1
+ left join (select 1 as id,SurveyingTime as col1 from surveyings where SurveyingId=1) X2 
+ on X1.id=X2.id
+ )  X22 on p.targetid=X22.col2 
+ where p.targetid=1
+ ) D on po.pointid=D.pointid
+where po.targetid=1
+
