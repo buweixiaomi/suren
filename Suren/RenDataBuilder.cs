@@ -195,7 +195,7 @@ namespace Suren
             return rdata;
         }
 
-        public static void BindToChart(string title, Chart chart, Dictionary<Models.Point, List<Models.SurDataGen>> pointsdata)
+        public static void BindToChart(string title, Chart chart, Dictionary<Models.Point, List<Models.SurDataGen>> pointsdata, float times)
         {
             chart.Series.Clear();
             chart.Legends.Clear();
@@ -204,6 +204,7 @@ namespace Suren
             chart.Titles.Clear();
 
             chart.Titles.Add(title ?? "时间变化曲线图");
+            chart.Titles[0].Font = WordHelper.GetFont(WordHelper.NormalTitleSize * times);
             var Interval = 1;
             if (pointsdata.Count > 0 && pointsdata.First().Value.Count > 0)
             {
@@ -224,6 +225,12 @@ namespace Suren
             area.AxisY2.MajorGrid.LineColor = Color.FromArgb(vy, vy, vy);
             area.AxisY2.MajorGrid.LineColor = Color.FromArgb(vy, vy, vy);
 
+            area.AxisX.LabelStyle.Font = WordHelper.GetFont(WordHelper.NormalTitleSize*times);
+            area.AxisY.LabelStyle.Font = WordHelper.GetFont(WordHelper.NormalTitleSize * times);
+            area.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont | LabelAutoFitStyles.StaggeredLabels;
+            area.AxisY.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont | LabelAutoFitStyles.StaggeredLabels;
+            area.AxisY.IsLabelAutoFit = true;
+            area.AxisX.IsLabelAutoFit = true;
             chart.ChartAreas.Add(area);
             var leg = new Legend("mainleg");
             leg.IsTextAutoFit = true;
@@ -231,6 +238,7 @@ namespace Suren
             leg.Docking = Docking.Bottom;
             leg.DockedToChartArea = "mainarea";
             chart.Legends.Add(leg);
+            chart.Legends[0].Font = WordHelper.GetFont(WordHelper.NormalTitleSize * times);
             List<MarkerStyle> mks = new List<MarkerStyle>();
             mks.Add(MarkerStyle.Circle);
             mks.Add(MarkerStyle.Star4);
@@ -254,6 +262,7 @@ namespace Suren
                 }
                 //if (a.Value.Count == 0) continue;
                 var series = new Series("mainline" + a.Key.PointId);
+                series.Font = WordHelper.GetFont(WordHelper.NormalTitleSize * times);
                 series.LegendText = a.Key.PointName;
                 series.ChartType = SeriesChartType.Line;
                 series.ChartArea = "mainarea";

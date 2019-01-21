@@ -120,7 +120,7 @@ namespace Suren.Views
                     gridgen.ReadOnly = true;
                     gridgen.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     var cdata = RenDataBuilder.BuildChartData(pid, tid, gendatas);
-                    RenDataBuilder.BindToChart(null, chart1, cdata);
+                    RenDataBuilder.BindToChart(null, chart1, cdata, 1);
 
                     var ds = TmplHelper.Exec(pid, tid, GetCurrentTmpl());
                     GridReportHelper.ShowReport(gridtarreport, ds.Tables[0], ds.Tables[1], ds.Tables[2]);
@@ -167,31 +167,40 @@ namespace Suren.Views
             using (var dbconn = Pub.GetConn())
             {
                 var proinfo = Dal.Instance.ProjectDetail(pid);
-                foreach (var tr in Dal.Instance.Targets(pid))
+
+                using (var ms = new System.IO.MemoryStream())
                 {
-                    var tid = tr.TargetId;
-                    string title = string.Format("{0}{1}时间变化曲线图", proinfo.ProjectName, tr.TargetName);
-                    var gendatas = Dal.Instance.GetGenDatas(pid, tid);
-                    var ds = TmplHelper.Exec(pid, tid, GetCurrentTmpl());
-                    var fn = string.Format("{0}-{1}-{2}.docx", proinfo.ProjectName, tr.TargetName, tid);
+                    var fn = string.Format("{0}-报表.docx", proinfo.ProjectName);
                     string fullname = System.IO.Path.Combine(path, fn);
-                    Chart mychart = new Chart();
                     int w = WordHelper.ToTI(210, 2);
                     int h = WordHelper.ToTI(297, 2);
-                    int wimg = WordHelper.TIToPx(w);
-                    mychart.Size = new Size(wimg - 10, 200);
-                    var dic = RenDataBuilder.BuildChartData(pid, tid, gendatas);
-                    RenDataBuilder.BindToChart(title, mychart, dic);
-                    var gtb = RenDataBuilder.BuildGenTable(pid, tid, gendatas);
-                    using (var ms = new System.IO.MemoryStream())
+                    var wordh = new WordHelper(fullname, w, h);
+
+                    wordh.AddTitle(string.Format("{0}-报表", proinfo.ProjectName));
+
+                    foreach (var tr in Dal.Instance.Targets(pid))
                     {
-                        var wordh = new WordHelper(fullname, w, h);
+                        var tid = tr.TargetId;
+                        string title = string.Format("{0}{1}时间变化曲线图", proinfo.ProjectName, tr.TargetName);
+                        var gendatas = Dal.Instance.GetGenDatas(pid, tid);
+                        var ds = TmplHelper.Exec(pid, tid, GetCurrentTmpl());
+                        Chart mychart = new Chart();
+                        int wimg = WordHelper.TIToPx(w);
+                        int himg = (int)(wimg / 5.0 * 2);
+                        mychart.Size = new Size(wimg * 2, himg * 2);
+                        var dic = RenDataBuilder.BuildChartData(pid, tid, gendatas);
+                        RenDataBuilder.BindToChart(title, mychart, dic, 2);
+                        var gtb = RenDataBuilder.BuildGenTable(pid, tid, gendatas);
                         wordh.DrawTable(ds.Tables[0], ds.Tables[1], ds.Tables[2]);
-                        mychart.SaveImage(ms, ChartImageFormat.Png);
-                        wordh.DrawTableChart(ms, mychart.Width, mychart.Height);
+                        wordh.AddEmptLine();
                         wordh.DrawTable(gtb);
-                        wordh.Save();
+                        wordh.AddEmptLine();
+                        mychart.SaveImage(ms, ChartImageFormat.Png);
+                        wordh.AddEmptLine();
+                        wordh.DrawTableChart(ms, wimg - 20, himg);
+                        wordh.AddEmptLine();
                     }
+                    wordh.Save();
                 }
             }
 

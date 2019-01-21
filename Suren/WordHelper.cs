@@ -15,6 +15,11 @@ namespace Suren
 {
     public class WordHelper
     {
+        public const int DocTitleSize = 16;
+        public const int TableTitleSize = 11;
+        public const int NormalTitleSize = 11;
+        public const int MainTextSize = 10;
+        public static string DecimalFomat = "0.000";
         string fileName = "";
         XWPFDocument m_Docx;
         public WordHelper(string name, int w, int h)
@@ -31,6 +36,14 @@ namespace Suren
             m_SectPr.pgMar.bottom = "150";
             m_Docx.Document.body.sectPr = m_SectPr;          //设置页面的尺寸
 
+        }
+
+
+        public static Font GetFont(float fontsize = TableTitleSize,bool bold=false)
+        {
+            System.Drawing.FontFamily myFontFamily = new System.Drawing.FontFamily("微软雅黑"); //采用哪种字体
+            Font myFont = new Font(myFontFamily, fontsize,bold?FontStyle.Bold:FontStyle.Regular); //字是那种字体（幼圆），显示的
+            return myFont;
         }
 
         /// <summary>
@@ -98,7 +111,13 @@ namespace Suren
             ctPr = cttc.AddNewTcPr();
             ctPr.AddNewGridspan();
             ctPr.gridSpan.val = colscount.ToString();
-            cell.SetText(tbtitle.Rows.Count == 0 ? "" : tbtitle.Rows[0][0].ToString());
+            var title = tbtitle.Rows.Count == 0 ? "" : tbtitle.Rows[0][0].ToString();
+            var parag = cell.Paragraphs[0];
+            parag.Alignment = ParagraphAlignment.CENTER;
+            var cellrun = parag.CreateRun();
+            cellrun.FontSize = TableTitleSize + 1;
+            cellrun.IsBold = true;
+            cellrun.SetText(title);
             for (var k = eachspan.Count; k < colscount; k++)
                 table.GetRow(1).RemoveCell(0);
             for (var k = 0; k < tbmake.Columns.Count; k++)
@@ -109,7 +128,12 @@ namespace Suren
                 ctPr = cttc.AddNewTcPr();
                 ctPr.AddNewGridspan();
                 ctPr.gridSpan.val = eachspan[k].ToString();
-                cell.SetText(val);
+                parag = cell.Paragraphs[0];
+                parag.Alignment = ParagraphAlignment.CENTER;
+                cellrun = parag.CreateRun();
+                cellrun.FontSize = TableTitleSize;
+                cellrun.IsBold = true;
+                cellrun.SetText(val);
             }
 
             for (int c = 0; c < tbdata.Columns.Count; c++)
@@ -142,6 +166,22 @@ namespace Suren
             var gr = m_Docx.CreateParagraph();
             var run = gr.CreateRun();
             run.AddPicture(imgstream, (int)NPOI.SS.UserModel.PictureType.PNG, "aa.png", w * 9525, h * 9525);
+
+        }
+
+        public void AddTitle(string title)
+        {
+            var gr = m_Docx.CreateParagraph();
+            gr.Alignment = ParagraphAlignment.CENTER;
+            var run = gr.CreateRun();
+            run.IsBold = true;
+            run.FontSize = DocTitleSize;
+            run.SetText(title ?? "");
+        }
+
+        public void AddEmptLine()
+        {
+            var gr = m_Docx.CreateParagraph();
         }
 
 
@@ -151,7 +191,13 @@ namespace Suren
             XWPFTableCell cell = null;
             for (int c = 0; c < tbdata.Columns.Count; c++)
             {
-                table.GetRow(0).GetCell(c).SetText(tbdata.Columns[c].ColumnName);
+                cell = table.GetRow(0).GetCell(c);
+                var para = cell.Paragraphs[0];
+                para.Alignment = ParagraphAlignment.CENTER;
+                var titlerun = para.CreateRun();
+                titlerun.IsBold = true;
+                titlerun.FontSize = TableTitleSize;
+                titlerun.SetText(tbdata.Columns[c].ColumnName);
             }
             for (var k = 0; k < tbdata.Rows.Count; k++)
             {
@@ -159,16 +205,21 @@ namespace Suren
                 {
                     var val = tbdata.Rows[k][c];
                     cell = table.GetRow(1 + k).GetCell(c);
+                    var parag = cell.Paragraphs[0];
+                    var ru = parag.CreateRun();
+                    ru.FontSize = MainTextSize;
                     if (val is decimal)
                     {
-                        cell.SetText(((decimal)val).ToString("0.000"));
+                        ru.SetText(((decimal)val).ToString(DecimalFomat));
                     }
                     else if (val is double)
                     {
-                        cell.SetText(((double)val).ToString("0.000"));
+                        ru.SetText(((double)val).ToString(DecimalFomat));
                     }
                     else
-                        cell.SetText(val.ToString());
+                    {
+                        ru.SetText(val.ToString());
+                    }
                 }
             }
         }
