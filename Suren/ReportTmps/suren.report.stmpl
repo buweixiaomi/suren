@@ -1,4 +1,14 @@
 
+@projectid
+@targetid
+@sureyingidlast 最后一次的ID
+@sureyingidfirst 第一次的ID
+
+#TITLE 默认模板
+
+#BEGIN-TABLE
+
+
 select concat(pr.projectname,tr.TargetName,'测量成果表') as `title`  
 from `targets` tr join `projects` pr on tr.projectid=pr.projectid
 where tr.targetid=@targetid;
@@ -62,3 +72,7 @@ left join (
  ) D on po.pointid=D.pointid
 where po.targetid=1
 
+
+#END-TABLE
+
+#DATAEXPRESSION  @ldata1-@data1

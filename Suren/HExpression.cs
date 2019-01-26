@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ConsoleApp2
+namespace Suren
 {
     public class HExpression
     {
@@ -216,80 +216,97 @@ namespace ConsoleApp2
         {
             this.Paras = paras;
             if (this.Paras == null) this.Paras = new Dictionary<string, double?>();
-            var v = CalcOp(this, HOperator.None, null, true);
+            var v = Calc(this);
             return v;
         }
 
 
-
-
-        private double? CalcReal(HExpression exp)
+        public double? Calc(HExpression exp)
         {
-            double? v = null;
-            switch (exp.HType)
+            List<double> values = new List<double>();
+            List<HOperator> ops = new List<HOperator>();
+            var curr = exp;
+            int maxlenght = 1024;
+            while (maxlenght > 0 && curr != null)
             {
-                case 1:
-                    v = exp.Value;
-                    break;
-                case 2:
-                    if (Paras.ContainsKey(exp.Name))
-                        v = Paras[exp.Name];
-                    else
-                        v = null;
-                    break;
-                case 3:
-                    v = CalcOp(exp.Current, exp.Current.Operator, exp.RightExp, true);
-                    break;
-                default:
-                    throw new Exception("Error Expression!");
-            }
-            return v;
-        }
-
-        private double? CalcOp(HExpression left, HOperator op, HExpression rigth, bool autonext)
-        {
-            double? leftv = null;
-            double? rightv = null;
-            if (op == HOperator.None)
-            {
-                leftv = CalcReal(left);
-                return leftv;
-            }
-            else
-            {
-                if (left.Operator == HOperator.None)
+                maxlenght--;
+                double? leftv = null;
+                switch (curr.HType)
                 {
-                    leftv = CalcOp(left, left.Operator, left.RightExp, true);
+                    case 1:
+                        leftv = curr.Value;
+                        break;
+                    case 2:
+                        if (Paras.ContainsKey(curr.Name))
+                            leftv = Paras[curr.Name];
+                        else
+                            leftv = null;
+                        break;
+                    case 3:
+                        leftv = Calc(curr.Current);
+                        break;
+                    default:
+                        throw new Exception("Error Expression!");
+                }
+                if (leftv == null)
+                    return null;
+                values.Add(leftv.Value);
+                if (curr.Operator == HOperator.None)
+                {
+                    curr = null;
+                    break;
+                }
+                else
+                {
+                    ops.Add(curr.Operator);
+                    curr = curr.RightExp;
                 }
             }
 
-            if (autonext && (op == HOperator.Plus || op == HOperator.Minus)
-                && (rigth.Operator == HOperator.Divide || rigth.Operator == HOperator.Multiply))
-            {
-                rightv = CalcOp(rigth, rigth.Operator, rigth.RightExp, false);
-            }
-            else
-            {
-                rightv = CalcReal(rigth);
-            }
-            if (rightv == null) return null;
 
-            switch (op)
+            while (values.Count > 1)
             {
-                case HOperator.None:
-                    return null;
-                case HOperator.Plus:
-                    return leftv + rightv;
-                case HOperator.Minus:
-                    return leftv - rightv;
-                case HOperator.Multiply:
-                    return leftv * rightv;
-                case HOperator.Divide:
-                    return leftv / rightv;
-                default:
-                    return null;
+                int cal1 = 0, cal2 = 1;
+                var op_a = ops[0];
+                if (ops.Count > 1)
+                {
+                    var op_b = ops[1];
+                    if (IsBGraterA(op_a, op_b))
+                    {
+                        cal1 = 1;
+                        cal2 = 2;
+                    }
+                }
+
+                double lastv = 0;
+                switch (ops[cal1])
+                {
+                    case HOperator.Plus:
+                        lastv = values[cal1] + values[cal2];
+                        break;
+                    case HOperator.Minus:
+                        lastv = values[cal1] - values[cal2];
+                        break;
+                    case HOperator.Multiply:
+                        lastv = values[cal1] * values[cal2];
+                        break;
+                    case HOperator.Divide:
+                        if (values[cal2] == 0)
+                            return null;
+                        lastv = values[cal1] / values[cal2];
+                        break;
+                    default:
+                        return null;
+                }
+                values.RemoveAt(cal1);
+                ops.RemoveAt(cal1);
+                values[cal1] = lastv;
             }
+
+            return values[0];
+
         }
+
 
         public override string ToString()
         {
@@ -321,6 +338,16 @@ namespace ConsoleApp2
                 if (ex.RightExp != null)
                     BuildExpString(sb, spacecount, ex.RightExp);
             }
+        }
+
+        private bool IsBGraterA(HOperator a, HOperator b)
+        {
+            if ((a == HOperator.Plus || a == HOperator.Minus)
+              && (b == HOperator.Divide || b == HOperator.Multiply))
+            {
+                return true;
+            }
+            return false;
         }
     }
 

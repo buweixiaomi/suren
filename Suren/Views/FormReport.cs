@@ -15,6 +15,7 @@ namespace Suren.Views
         public FormReport()
         {
             InitializeComponent();
+            GetTMPLS();
         }
 
         private void siproject_Searching(object sender, EventArgs e)
@@ -90,6 +91,14 @@ namespace Suren.Views
             int pagesize = 100;
             var pid = Lib.ToInt(siproject.RealValue);
             var tid = Lib.ToInt(sitarget.RealValue);
+
+            var obj = tscmbtmpls.SelectedItem;
+            SurenTmpl tmp = null;
+            if (obj != null)
+            {
+                tmp = obj as SurenTmpl;
+            }
+
             using (var db = Pub.GetConn())
             {
                 var datas = Dal.Instance.QuerySurveyingDetails(pno, pagesize, pid, tid);
@@ -122,8 +131,11 @@ namespace Suren.Views
                     var cdata = RenDataBuilder.BuildChartData(pid, tid, gendatas);
                     RenDataBuilder.BindToChart(null, chart1, cdata, 1);
 
-                    var ds = TmplHelper.Exec(pid, tid, GetCurrentTmpl());
-                    GridReportHelper.ShowReport(gridtarreport, ds.Tables[0], ds.Tables[1], ds.Tables[2]);
+                    if (tmp != null)
+                    {
+                        var ds = TmplHelper.Exec(pid, tid, tmp);
+                        GridReportHelper.ShowReport(gridtarreport, ds.Tables[0], ds.Tables[1], ds.Tables[2]);
+                    }
 
                 }
                 else
@@ -149,7 +161,18 @@ namespace Suren.Views
                 MsgHelper.ShowInfo("请选择项目！");
                 return;
             }
-            var g = new RenDataBuilder(pid);
+            var obj = tscmbtmpls.SelectedItem;
+            SurenTmpl tmp = null;
+            if (obj != null)
+            {
+                tmp = obj as SurenTmpl;
+            }
+            if (tmp == null)
+            {
+                MsgHelper.ShowInfo("请选择模板！");
+                return;
+            }
+            var g = new RenDataBuilder(pid, tmp);
             g.Start();
             MsgHelper.ShowInfo("生成成功");
         }
@@ -160,6 +183,18 @@ namespace Suren.Views
             if (pid <= 0)
             {
                 MsgHelper.ShowInfo("请选择项目");
+                return;
+            }
+
+            var obj = tscmbtmpls.SelectedItem;
+            SurenTmpl tmp = null;
+            if (obj != null)
+            {
+                tmp = obj as SurenTmpl;
+            }
+            if (tmp == null)
+            {
+                MsgHelper.ShowInfo("请选择模板！");
                 return;
             }
 
@@ -183,7 +218,7 @@ namespace Suren.Views
                         var tid = tr.TargetId;
                         string title = string.Format("{0}{1}时间变化曲线图", proinfo.ProjectName, tr.TargetName);
                         var gendatas = Dal.Instance.GetGenDatas(pid, tid);
-                        var ds = TmplHelper.Exec(pid, tid, GetCurrentTmpl());
+                        var ds = TmplHelper.Exec(pid, tid, tmp);
                         Chart mychart = new Chart();
                         int wimg = WordHelper.TIToPx(w);
                         int himg = (int)(wimg / 5.0 * 2);
@@ -207,6 +242,40 @@ namespace Suren.Views
             System.Diagnostics.Process.Start(path);
 
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            HExpression hExpression = HExpression.Parse(textBox1.Text);
+            if (hExpression == null)
+            {
+                MsgHelper.ShowInfo("错误的表达式！");
+                return;
+            }
+            var val = hExpression.Execute(null);
+            if (val == null)
+            {
+                MsgHelper.ShowInfo("返回 NULL");
+                return;
+            }
+            MsgHelper.ShowInfo(val.ToString());
+        }
+
+        private void tsbtnrefreshtmpl_Click(object sender, EventArgs e)
+        {
+            GetTMPLS();
+        }
+
+        private void GetTMPLS()
+        {
+            var tmps = TmplHelper.GetAll();
+            tscmbtmpls.Items.Clear();
+            foreach (var a in tmps)
+            {
+                tscmbtmpls.Items.Add(a);
+            }
+            if (tmps.Count > 0)
+                tscmbtmpls.SelectedIndex = 0;
         }
     }
 }

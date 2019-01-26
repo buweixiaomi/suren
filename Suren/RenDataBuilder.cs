@@ -12,9 +12,11 @@ namespace Suren
     {
         private int projectId;
         Models.Project mProject;
-        public RenDataBuilder(int projectid)
+        SurenTmpl mTmpl;
+        public RenDataBuilder(int projectid, SurenTmpl tmpl)
         {
             this.projectId = projectid;
+            mTmpl = tmpl;
         }
 
         public void Start()
@@ -38,6 +40,7 @@ namespace Suren
                 dbconn.BeginTransaction();
                 try
                 {
+                    Dal.Instance.DeleteProGenData(projectId);
                     foreach (var a in mProject.Targets)
                     {
                         GenOne(a.ProjectId, a.TargetId);
@@ -75,26 +78,37 @@ namespace Suren
                     gitem.PointId = p.PointId;
                     gitem.SurveyingId = sv.SurveyingId;
                     gitem.SurveyingTime = sv.SurveyingTime;
-                    if (index == 1)
+                    Dictionary<string, double?> para = new Dictionary<string, double?>();
+                    para.Add("@data1", sdetail.NoUseable > 0 ? new Nullable<double>() : (double)sdetail.Data1);
+                    para.Add("@data2", sdetail.NoUseable > 0 ? new Nullable<double>() : (double)sdetail.Data2);
+                    para.Add("@data3", sdetail.NoUseable > 0 ? new Nullable<double>() : (double)sdetail.Data3);
+                    if (lsdetail == null)
                     {
-                        gitem.Data1 = 0;
-                    }
-                    else if (sdetail == null)
-                    {
-                        gitem.Data1 = null;
-                    }
-                    else if (sdetail.NoUseable > 0)
-                    {
-                        gitem.Data1 = null;
-                    }
-                    else if (lsdetail == null)
-                    {
-                        gitem.Data1 = 0;
+                        para.Add("@ldata1", null);
+                        para.Add("@ldata2", null);
+                        para.Add("@ldata3", null);
                     }
                     else
                     {
-                        gitem.Data1 = sdetail.Data1 - lsdetail.Data1;
+                        para.Add("@ldata1", lsdetail.NoUseable > 0 ? new Nullable<double>() : (double)lsdetail.Data1);
+                        para.Add("@ldata2", lsdetail.NoUseable > 0 ? new Nullable<double>() : (double)lsdetail.Data2);
+                        para.Add("@ldata3", lsdetail.NoUseable > 0 ? new Nullable<double>() : (double)lsdetail.Data3);
                     }
+                    var he = HExpression.Parse(mTmpl.DataExpression);
+                    if (he == null)
+                    {
+                        gitem.Data1 = null;
+                    }
+                    else
+                    {
+                        var dv = he.Execute(para);
+                        if (dv == null)
+                            gitem.Data1 = null;
+                        else
+                            gitem.Data1 = (decimal)dv;
+                    }
+                    if (index == 1 && gitem.Data1 == null)
+                        gitem.Data1 = 0;
                     gns.Add(gitem);
                     if (sdetail != null && sdetail.NoUseable == 0)
                     {
@@ -190,7 +204,7 @@ namespace Suren
             }
             foreach (var a in rdata)
             {
-                a.Value.AddRange(datas.Where(x => x.PointId == a.Key.PointId).OrderBy(x => x.SurveyingTime).ToList());
+                a.Value.AddRange(datas.Where(x => x.Data1 != null && x.PointId == a.Key.PointId).OrderBy(x => x.SurveyingTime).ToList());
             }
             return rdata;
         }
@@ -225,7 +239,7 @@ namespace Suren
             area.AxisY2.MajorGrid.LineColor = Color.FromArgb(vy, vy, vy);
             area.AxisY2.MajorGrid.LineColor = Color.FromArgb(vy, vy, vy);
 
-            area.AxisX.LabelStyle.Font = WordHelper.GetFont(WordHelper.NormalTitleSize*times);
+            area.AxisX.LabelStyle.Font = WordHelper.GetFont(WordHelper.NormalTitleSize * times);
             area.AxisY.LabelStyle.Font = WordHelper.GetFont(WordHelper.NormalTitleSize * times);
             area.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont | LabelAutoFitStyles.StaggeredLabels;
             area.AxisY.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont | LabelAutoFitStyles.StaggeredLabels;

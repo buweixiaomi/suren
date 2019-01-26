@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="Dal.cs" />
     <Compile Include="GridReportHelper.cs" />
+    <Compile Include="HExpression.cs" />
     <Compile Include="Lib.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\Point.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="MsgHelper.cs" />
     <Compile Include="Pub.cs" />
     <Compile Include="RenDataBuilder.cs" />
+    <Compile Include="RExpression.cs" />
     <Compile Include="SurenApplication.cs" />
     <Compile Include="TestDataBuilder.cs" />
     <Compile Include="TmplHelper.cs" />

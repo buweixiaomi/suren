@@ -40,6 +40,9 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.tscmbtmpls = new System.Windows.Forms.ToolStripComboBox();
+            this.tsbtnrefreshtmpl = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.pnltop = new System.Windows.Forms.Panel();
@@ -53,6 +56,8 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.gridtarreport = new Suren.XPMergeView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolStrip1.SuspendLayout();
             this.pnltop.SuspendLayout();
@@ -77,13 +82,38 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripLabel1,
+            this.tscmbtmpls,
+            this.tsbtnrefreshtmpl,
+            this.toolStripButton2,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(899, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(59, 22);
+            this.toolStripLabel1.Text = "数据模板:";
+            // 
+            // tscmbtmpls
+            // 
+            this.tscmbtmpls.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscmbtmpls.Name = "tscmbtmpls";
+            this.tscmbtmpls.Size = new System.Drawing.Size(121, 25);
+            // 
+            // tsbtnrefreshtmpl
+            // 
+            this.tsbtnrefreshtmpl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnrefreshtmpl.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnrefreshtmpl.Image")));
+            this.tsbtnrefreshtmpl.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnrefreshtmpl.Name = "tsbtnrefreshtmpl";
+            this.tsbtnrefreshtmpl.Size = new System.Drawing.Size(84, 22);
+            this.tsbtnrefreshtmpl.Text = "刷新模板列表";
+            this.tsbtnrefreshtmpl.Click += new System.EventHandler(this.tsbtnrefreshtmpl_Click);
             // 
             // toolStripButton1
             // 
@@ -310,10 +340,30 @@
             // 
             // splitContainer3.Panel2
             // 
+            this.splitContainer3.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer3.Panel2.Controls.Add(this.button1);
             this.splitContainer3.Panel2.Controls.Add(this.chart1);
             this.splitContainer3.Size = new System.Drawing.Size(899, 132);
             this.splitContainer3.SplitterDistance = 442;
             this.splitContainer3.TabIndex = 5;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(30, 13);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(299, 74);
+            this.textBox1.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(335, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 74);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // chart1
             // 
@@ -369,6 +419,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridtarreport)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
+            this.splitContainer3.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
@@ -394,5 +445,10 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private XPMergeView gridtarreport;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox tscmbtmpls;
+        private System.Windows.Forms.ToolStripButton tsbtnrefreshtmpl;
     }
 }

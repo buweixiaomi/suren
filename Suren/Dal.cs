@@ -307,6 +307,12 @@ WHERE `SurveyingId` = @SurveyingId ;";
             DbConn.ExecuteSql(sql, gen);
         }
 
+        public void DeleteProGenData(int projectid)
+        {
+            string sql = "delete from `surdatagen` where `projectId`=@projectid ";
+            DbConn.ExecuteSql(sql, new { projectid = projectid });
+        }
+
         public List<Models.SurDataGen> GetGenDatas(int projectid, int targetid)
         {
             string sql = "select * from `surdatagen` " +

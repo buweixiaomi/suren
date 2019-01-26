@@ -8,16 +8,54 @@ namespace Suren
 {
     public class TmplHelper
     {
-        public static Dictionary<string, string> GetAll()
+        public static List<SurenTmpl> GetAll()
         {
-            return null;
+            var rdata = new List<SurenTmpl>();
+            var dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ReportTmps");
+            if (System.IO.Directory.Exists(dir))
+            {
+                var fls = System.IO.Directory.GetFiles(dir, "*.stmpl");
+                foreach (var fullname in fls)
+                {
+                    var tp = new SurenTmpl();
+                    tp.FileName = fullname;
+                    using (var sr = new System.IO.StreamReader(fullname, Encoding.UTF8))
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        while (!sr.EndOfStream)
+                        {
+                            var line = sr.ReadLine();
+                            if (line.StartsWith("#TITLE"))
+                            {
+                                tp.Title = line.Substring("#TITLE".Length).Trim();
+                            }
+                            if (line.StartsWith("#DATAEXPRESSION"))
+                            {
+                                tp.DataExpression = line.Substring("#DATAEXPRESSION".Length);
+                            }
+                            else if (line.StartsWith("#BEGIN-TABLE"))
+                            {
+                                sb.Clear();
+                            }
+                            else if (line.StartsWith("#END-TABLE"))
+                            {
+                                tp.Table = sb.ToString();
+                            }
+                            else
+                            {
+                                sb.AppendLine(line);
+                            }
+                        }
+                    }
+                    rdata.Add(tp);
+                }
+            }
+            return rdata;
         }
 
-        public static DataSet Exec(int pid, int tid, string tmpl)
+        public static DataSet Exec(int pid, int tid, SurenTmpl tmpl)
         {
-            var fullname = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ReportTmps\\" + tmpl);
-            if (!System.IO.File.Exists(fullname)) return null;
-            string sql = System.IO.File.ReadAllText(fullname, Encoding.UTF8);
+            string sql = tmpl.Table;
             using (var db = Pub.GetConn())
             {
                 var svs = Dal.Instance.GetTargetSurveyings(pid, tid);
@@ -32,6 +70,18 @@ namespace Suren
                 var ds = db.SqlToDataSet(sql, null);
                 return ds;
             }
+        }
+    }
+
+    public class SurenTmpl
+    {
+        public string FileName { get; set; }
+        public string Title { get; set; }
+        public string Table { get; set; }
+        public string DataExpression { get; set; }
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }
