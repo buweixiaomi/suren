@@ -70,12 +70,12 @@
             this.siprojectname.ButtonVisible = false;
             this.siprojectname.DisplayValue = "";
             this.siprojectname.EditText = "";
-            this.siprojectname.Location = new System.Drawing.Point(22, 56);
+            this.siprojectname.Location = new System.Drawing.Point(22, 61);
             this.siprojectname.Name = "siprojectname";
             this.siprojectname.ReadOnly = false;
             this.siprojectname.RealValue = null;
             this.siprojectname.SelectOnly = false;
-            this.siprojectname.Size = new System.Drawing.Size(340, 38);
+            this.siprojectname.Size = new System.Drawing.Size(340, 41);
             this.siprojectname.TabIndex = 1;
             this.siprojectname.Title = "项目名称：";
             // 
@@ -84,12 +84,12 @@
             this.siprojectremark.ButtonVisible = false;
             this.siprojectremark.DisplayValue = "";
             this.siprojectremark.EditText = "";
-            this.siprojectremark.Location = new System.Drawing.Point(22, 89);
+            this.siprojectremark.Location = new System.Drawing.Point(22, 96);
             this.siprojectremark.Name = "siprojectremark";
             this.siprojectremark.ReadOnly = false;
             this.siprojectremark.RealValue = null;
             this.siprojectremark.SelectOnly = false;
-            this.siprojectremark.Size = new System.Drawing.Size(340, 38);
+            this.siprojectremark.Size = new System.Drawing.Size(340, 41);
             this.siprojectremark.TabIndex = 2;
             this.siprojectremark.Title = "项目备注：";
             // 
@@ -98,12 +98,12 @@
             this.siprojectid.ButtonVisible = false;
             this.siprojectid.DisplayValue = "";
             this.siprojectid.EditText = "";
-            this.siprojectid.Location = new System.Drawing.Point(22, 23);
+            this.siprojectid.Location = new System.Drawing.Point(22, 25);
             this.siprojectid.Name = "siprojectid";
             this.siprojectid.ReadOnly = true;
             this.siprojectid.RealValue = null;
             this.siprojectid.SelectOnly = false;
-            this.siprojectid.Size = new System.Drawing.Size(340, 37);
+            this.siprojectid.Size = new System.Drawing.Size(340, 40);
             this.siprojectid.TabIndex = 0;
             this.siprojectid.Title = "项目ID：";
             // 
@@ -116,7 +116,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F);
             this.groupBox1.Location = new System.Drawing.Point(0, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(885, 133);
+            this.groupBox1.Size = new System.Drawing.Size(885, 144);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "基本信息";
@@ -129,7 +129,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(436, 321);
+            this.groupBox2.Size = new System.Drawing.Size(436, 350);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "测量对象";
@@ -151,7 +151,7 @@
             this.gridtarget.MultiSelect = false;
             this.gridtarget.Name = "gridtarget";
             this.gridtarget.RowTemplate.Height = 23;
-            this.gridtarget.Size = new System.Drawing.Size(430, 272);
+            this.gridtarget.Size = new System.Drawing.Size(430, 301);
             this.gridtarget.TabIndex = 0;
             this.gridtarget.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridtarget_CellEndEdit);
             this.gridtarget.CurrentCellChanged += new System.EventHandler(this.gridtarget_CurrentCellChanged);
@@ -192,7 +192,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(37, 22);
             this.toolStripButton1.Text = "添加";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -202,7 +202,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(37, 22);
             this.toolStripButton2.Text = "删除";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -214,7 +214,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F);
             this.groupBox3.Location = new System.Drawing.Point(445, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(437, 321);
+            this.groupBox3.Size = new System.Drawing.Size(437, 350);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "测量点";
@@ -235,7 +235,7 @@
             this.gridpoint.Location = new System.Drawing.Point(3, 46);
             this.gridpoint.Name = "gridpoint";
             this.gridpoint.RowTemplate.Height = 23;
-            this.gridpoint.Size = new System.Drawing.Size(431, 272);
+            this.gridpoint.Size = new System.Drawing.Size(431, 301);
             this.gridpoint.TabIndex = 0;
             this.gridpoint.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridpoint_CellEndEdit);
             this.gridpoint.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridpoint_KeyDown);
@@ -279,7 +279,7 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton3.Size = new System.Drawing.Size(37, 22);
             this.toolStripButton3.Text = "添加";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
@@ -289,7 +289,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton4.Size = new System.Drawing.Size(37, 22);
             this.toolStripButton4.Text = "删除";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
@@ -309,7 +309,7 @@
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton5.Size = new System.Drawing.Size(37, 22);
             this.toolStripButton5.Text = "保存";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
             // 
@@ -321,18 +321,18 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 158);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 169);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(885, 327);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(885, 356);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // FormProDetail
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 485);
+            this.ClientSize = new System.Drawing.Size(885, 525);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip3);

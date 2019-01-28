@@ -25,6 +25,7 @@ namespace Suren
                         while (!sr.EndOfStream)
                         {
                             var line = sr.ReadLine();
+                            if (line.StartsWith("###") || line.StartsWith("## ")) continue;
                             if (line.StartsWith("#TITLE"))
                             {
                                 tp.Title = line.Substring("#TITLE".Length).Trim();
@@ -40,6 +41,10 @@ namespace Suren
                             else if (line.StartsWith("#END-TABLE"))
                             {
                                 tp.Table = sb.ToString();
+                            }
+                            else if (line.StartsWith("#CHART-DATAFORMAT"))
+                            {
+                                tp.ChartDataFormat = line.Substring("#CHART-DATAFORMAT".Length).Trim();
                             }
                             else
                             {
@@ -78,6 +83,7 @@ namespace Suren
         public string FileName { get; set; }
         public string Title { get; set; }
         public string Table { get; set; }
+        public string ChartDataFormat { get; set; }
         public string DataExpression { get; set; }
         public override string ToString()
         {

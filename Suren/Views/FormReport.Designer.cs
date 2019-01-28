@@ -43,8 +43,8 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tscmbtmpls = new System.Windows.Forms.ToolStripComboBox();
             this.tsbtnrefreshtmpl = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.pnltop = new System.Windows.Forms.Panel();
             this.btnsearch = new System.Windows.Forms.Button();
             this.sitarget = new Suren.Views.SelectInput();
@@ -56,8 +56,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.gridtarreport = new Suren.XPMergeView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolStrip1.SuspendLayout();
             this.pnltop.SuspendLayout();
@@ -96,7 +94,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(59, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(62, 22);
             this.toolStripLabel1.Text = "数据模板:";
             // 
             // tscmbtmpls
@@ -111,19 +109,9 @@
             this.tsbtnrefreshtmpl.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnrefreshtmpl.Image")));
             this.tsbtnrefreshtmpl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnrefreshtmpl.Name = "tsbtnrefreshtmpl";
-            this.tsbtnrefreshtmpl.Size = new System.Drawing.Size(84, 22);
+            this.tsbtnrefreshtmpl.Size = new System.Drawing.Size(89, 22);
             this.tsbtnrefreshtmpl.Text = "刷新模板列表";
             this.tsbtnrefreshtmpl.Click += new System.EventHandler(this.tsbtnrefreshtmpl_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(84, 22);
-            this.toolStripButton1.Text = "导出项目报表";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
             // 
@@ -131,9 +119,19 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(84, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(89, 22);
             this.toolStripButton2.Text = "生成差异数据";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(89, 22);
+            this.toolStripButton1.Text = "导出项目报表";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // pnltop
             // 
@@ -143,14 +141,14 @@
             this.pnltop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnltop.Location = new System.Drawing.Point(0, 25);
             this.pnltop.Name = "pnltop";
-            this.pnltop.Size = new System.Drawing.Size(899, 38);
+            this.pnltop.Size = new System.Drawing.Size(899, 41);
             this.pnltop.TabIndex = 1;
             // 
             // btnsearch
             // 
             this.btnsearch.Location = new System.Drawing.Point(33, 4);
             this.btnsearch.Name = "btnsearch";
-            this.btnsearch.Size = new System.Drawing.Size(75, 23);
+            this.btnsearch.Size = new System.Drawing.Size(75, 25);
             this.btnsearch.TabIndex = 2;
             this.btnsearch.Text = "查询";
             this.btnsearch.UseVisualStyleBackColor = true;
@@ -166,7 +164,7 @@
             this.sitarget.ReadOnly = false;
             this.sitarget.RealValue = null;
             this.sitarget.SelectOnly = true;
-            this.sitarget.Size = new System.Drawing.Size(280, 29);
+            this.sitarget.Size = new System.Drawing.Size(280, 31);
             this.sitarget.TabIndex = 1;
             this.sitarget.Title = "测量目标：";
             this.sitarget.Searching += new System.EventHandler(this.sitarget_Searching);
@@ -181,7 +179,7 @@
             this.siproject.ReadOnly = false;
             this.siproject.RealValue = null;
             this.siproject.SelectOnly = true;
-            this.siproject.Size = new System.Drawing.Size(280, 29);
+            this.siproject.Size = new System.Drawing.Size(280, 31);
             this.siproject.TabIndex = 0;
             this.siproject.Title = "项目：";
             this.siproject.Searching += new System.EventHandler(this.siproject_Searching);
@@ -213,15 +211,15 @@
             this.griddetail.Location = new System.Drawing.Point(0, 0);
             this.griddetail.Name = "griddetail";
             this.griddetail.RowTemplate.Height = 23;
-            this.griddetail.Size = new System.Drawing.Size(899, 117);
+            this.griddetail.Size = new System.Drawing.Size(899, 134);
             this.griddetail.TabIndex = 2;
             // 
             // pager1
             // 
             this.pager1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pager1.Location = new System.Drawing.Point(0, 86);
+            this.pager1.Location = new System.Drawing.Point(0, 100);
             this.pager1.Name = "pager1";
-            this.pager1.Size = new System.Drawing.Size(899, 31);
+            this.pager1.Size = new System.Drawing.Size(899, 34);
             this.pager1.TabIndex = 3;
             this.pager1.OnPage += new System.Action<int>(this.pager1_OnPage);
             // 
@@ -261,7 +259,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 63);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 66);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -272,8 +270,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(899, 338);
-            this.splitContainer1.SplitterDistance = 202;
+            this.splitContainer1.Size = new System.Drawing.Size(899, 368);
+            this.splitContainer1.SplitterDistance = 232;
             this.splitContainer1.TabIndex = 5;
             // 
             // splitContainer2
@@ -291,8 +289,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gridtarreport);
-            this.splitContainer2.Size = new System.Drawing.Size(899, 202);
-            this.splitContainer2.SplitterDistance = 117;
+            this.splitContainer2.Size = new System.Drawing.Size(899, 232);
+            this.splitContainer2.SplitterDistance = 134;
             this.splitContainer2.TabIndex = 3;
             // 
             // gridtarreport
@@ -325,7 +323,7 @@
             this.gridtarreport.ReadOnly = true;
             this.gridtarreport.RowHeadersWidth = 20;
             this.gridtarreport.RowTemplate.Height = 23;
-            this.gridtarreport.Size = new System.Drawing.Size(899, 81);
+            this.gridtarreport.Size = new System.Drawing.Size(899, 94);
             this.gridtarreport.TabIndex = 0;
             // 
             // splitContainer3
@@ -340,30 +338,10 @@
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.textBox1);
-            this.splitContainer3.Panel2.Controls.Add(this.button1);
             this.splitContainer3.Panel2.Controls.Add(this.chart1);
             this.splitContainer3.Size = new System.Drawing.Size(899, 132);
             this.splitContainer3.SplitterDistance = 442;
             this.splitContainer3.TabIndex = 5;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(30, 13);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(299, 74);
-            this.textBox1.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(335, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 74);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // chart1
             // 
@@ -393,9 +371,9 @@
             // 
             // FormReport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 401);
+            this.ClientSize = new System.Drawing.Size(899, 434);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.pnltop);
             this.Controls.Add(this.toolStrip1);
@@ -419,7 +397,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridtarreport)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
-            this.splitContainer3.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
@@ -445,8 +422,6 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private XPMergeView gridtarreport;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox tscmbtmpls;
         private System.Windows.Forms.ToolStripButton tsbtnrefreshtmpl;

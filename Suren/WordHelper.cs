@@ -18,7 +18,7 @@ namespace Suren
         public const int DocTitleSize = 16;
         public const int TableTitleSize = 11;
         public const int NormalTitleSize = 11;
-        public const int MainTextSize = 10;
+        public const int MainTextSize = 9;
         public static string DecimalFomat = "0.000";
         string fileName = "";
         XWPFDocument m_Docx;
@@ -196,7 +196,7 @@ namespace Suren
                 para.Alignment = ParagraphAlignment.CENTER;
                 var titlerun = para.CreateRun();
                 titlerun.IsBold = true;
-                titlerun.FontSize = TableTitleSize;
+                titlerun.FontSize = MainTextSize;
                 titlerun.SetText(tbdata.Columns[c].ColumnName);
             }
             for (var k = 0; k < tbdata.Rows.Count; k++)

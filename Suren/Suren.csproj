@@ -214,6 +214,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ReportTmps\suren.report2.stmpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ReportTmps\suren.report.stmpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

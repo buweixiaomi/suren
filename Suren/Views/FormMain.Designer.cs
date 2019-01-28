@@ -30,11 +30,11 @@
         {
             this.dockPanelMain = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.pnlLeft = new System.Windows.Forms.Panel();
+            this.btnbuildtestdata = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
             this.btnAddSur = new System.Windows.Forms.Button();
             this.btnSurList = new System.Windows.Forms.Button();
             this.btnProList = new System.Windows.Forms.Button();
-            this.btnbuildtestdata = new System.Windows.Forms.Button();
             this.pnlLeft.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +61,17 @@
             this.pnlLeft.Name = "pnlLeft";
             this.pnlLeft.Size = new System.Drawing.Size(176, 544);
             this.pnlLeft.TabIndex = 2;
+            // 
+            // btnbuildtestdata
+            // 
+            this.btnbuildtestdata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnbuildtestdata.Location = new System.Drawing.Point(3, 509);
+            this.btnbuildtestdata.Name = "btnbuildtestdata";
+            this.btnbuildtestdata.Size = new System.Drawing.Size(167, 23);
+            this.btnbuildtestdata.TabIndex = 4;
+            this.btnbuildtestdata.Text = "清空原数据生成测试数据";
+            this.btnbuildtestdata.UseVisualStyleBackColor = true;
+            this.btnbuildtestdata.Click += new System.EventHandler(this.btnbuildtestdata_Click);
             // 
             // btnReport
             // 
@@ -105,17 +116,6 @@
             this.btnProList.Text = "项目列表(&P)";
             this.btnProList.UseVisualStyleBackColor = true;
             this.btnProList.Click += new System.EventHandler(this.btnProList_Click);
-            // 
-            // btnbuildtestdata
-            // 
-            this.btnbuildtestdata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnbuildtestdata.Location = new System.Drawing.Point(12, 509);
-            this.btnbuildtestdata.Name = "btnbuildtestdata";
-            this.btnbuildtestdata.Size = new System.Drawing.Size(143, 23);
-            this.btnbuildtestdata.TabIndex = 4;
-            this.btnbuildtestdata.Text = "清空原数据生成测试数据";
-            this.btnbuildtestdata.UseVisualStyleBackColor = true;
-            this.btnbuildtestdata.Click += new System.EventHandler(this.btnbuildtestdata_Click);
             // 
             // FormMain
             // 

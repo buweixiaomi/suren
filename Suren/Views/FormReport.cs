@@ -124,7 +124,7 @@ namespace Suren.Views
                 var gendatas = Dal.Instance.GetGenDatas(pid, tid);
                 if (pid > 0 && tid > 0)
                 {
-                    var tb = RenDataBuilder.BuildGenTable(pid, tid, gendatas);
+                    var tb = RenDataBuilder.BuildGenTable(pid, tid, gendatas, tmp);
                     gridgen.DataSource = tb;
                     gridgen.ReadOnly = true;
                     gridgen.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -225,7 +225,7 @@ namespace Suren.Views
                         mychart.Size = new Size(wimg * 2, himg * 2);
                         var dic = RenDataBuilder.BuildChartData(pid, tid, gendatas);
                         RenDataBuilder.BindToChart(title, mychart, dic, 2);
-                        var gtb = RenDataBuilder.BuildGenTable(pid, tid, gendatas);
+                        var gtb = RenDataBuilder.BuildGenTable(pid, tid, gendatas, tmp);
                         wordh.DrawTable(ds.Tables[0], ds.Tables[1], ds.Tables[2]);
                         wordh.AddEmptLine();
                         wordh.DrawTable(gtb);
@@ -244,22 +244,6 @@ namespace Suren.Views
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            HExpression hExpression = HExpression.Parse(textBox1.Text);
-            if (hExpression == null)
-            {
-                MsgHelper.ShowInfo("错误的表达式！");
-                return;
-            }
-            var val = hExpression.Execute(null);
-            if (val == null)
-            {
-                MsgHelper.ShowInfo("返回 NULL");
-                return;
-            }
-            MsgHelper.ShowInfo(val.ToString());
-        }
 
         private void tsbtnrefreshtmpl_Click(object sender, EventArgs e)
         {

@@ -131,7 +131,7 @@ namespace Suren
             return map;
         }
 
-        public static DataTable BuildGenTable(int projectid, int targetid, List<Models.SurDataGen> datas)
+        public static DataTable BuildGenTable(int projectid, int targetid, List<Models.SurDataGen> datas, SurenTmpl tmpl)
         {
             Dictionary<int, DateTime> stimes = new Dictionary<int, DateTime>();
             Dictionary<int, string> ptitles = new Dictionary<int, string>();
@@ -172,9 +172,20 @@ namespace Suren
                     {
                         row[cindex] = "";
                     }
+                    else if (it.Data1 == null)
+                    {
+                        row[cindex] = "";
+                    }
                     else
                     {
-                        row[cindex] = it.Data1 == null ? new Nullable<decimal>() : it.Data1.Value;
+                        if (tmpl != null && !string.IsNullOrWhiteSpace(tmpl.ChartDataFormat))
+                        {
+                            row[cindex] = it.Data1.Value.ToString(tmpl.ChartDataFormat.Trim());
+                        }
+                        else
+                        {
+                            row[cindex] = it.Data1.Value.ToString();
+                        }
                     }
                 }
                 tb.Rows.Add(row);
